@@ -30,5 +30,13 @@ namespace ComarchCwiczenia.Services.Invoices
         {
             return netValue + (netValue * (taxValue / 100m));
         }
+
+        public string GenerateInvoiceNumber()
+        {
+            var datePart = DateTime.Now.ToString("yyyyMM");
+            var randomPart = new Random().Next(100, 999).ToString();
+
+            return $"FV-{datePart}-{randomPart}";
+        }
     }
 }
