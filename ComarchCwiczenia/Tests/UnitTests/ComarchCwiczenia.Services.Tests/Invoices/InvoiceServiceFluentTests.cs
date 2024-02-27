@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ComarchCwiczenia.Domain.Entities;
 using ComarchCwiczenia.Services.Invoices;
 using FluentAssertions;
+using FluentAssertions.Events;
 
 namespace ComarchCwiczenia.Services.Tests.Invoices
 {
@@ -62,6 +64,46 @@ namespace ComarchCwiczenia.Services.Tests.Invoices
             invoiceNumber.Should().HaveLength(13);
         }
         #endregion
-        
+
+        #region Assert collections
+
+        [Test]
+        public void GenerateInvoiceItems_Should_Return_NonEmptyCollection()
+        {
+            IEnumerable<InvoiceItem> actual = _invoiceService.GenerateInvoiceItems();
+
+            actual.Should().NotBeNullOrEmpty();
+        }
+
+        [Test]
+        public void GenerateInvoiceItems_Should_Return_ItemWithSpecificName()
+        {
+            IEnumerable<InvoiceItem> actual = _invoiceService.GenerateInvoiceItems();
+
+            actual.Should().Contain(item => item.ItemName.Equals("item 1", StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        [Test]
+        public void GenerateInvoiceItems_Should_Have_ItemsInAscedingOrderByQuantity()
+        {
+            IEnumerable<InvoiceItem> actual = _invoiceService.GenerateInvoiceItems();
+
+            actual.Should().BeInAscendingOrder(item => item.Quantity);
+        }
+
+        #endregion
+
+        #region Assert Events
+
+        [Test]
+        public void CreateInvoice_Should_RaiseInvoiceCreatedEvent()
+        {
+            using IMonitor<InvoiceService>? monitoredSubject = _invoiceService.Monitor();
+
+            Invoice actual = _invoiceService.CreateInvoice(Enumerable.Empty<InvoiceItem>());
+            monitoredSubject.Should().Raise(nameof(InvoiceService.InvoiceCreated));
+        }
+
+        #endregion
     }
 }

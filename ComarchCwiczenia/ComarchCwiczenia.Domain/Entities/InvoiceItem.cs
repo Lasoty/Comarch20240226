@@ -21,5 +21,7 @@ namespace ComarchCwiczenia.Domain.Entities
         public decimal TaxValue { get; set; }
 
         public string ItemName { get; set; }
+
+        public int Quantity { get; set; }
     }
 }

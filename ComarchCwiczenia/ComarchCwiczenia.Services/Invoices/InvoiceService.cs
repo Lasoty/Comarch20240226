@@ -38,5 +38,25 @@ namespace ComarchCwiczenia.Services.Invoices
 
             return $"FV-{datePart}-{randomPart}";
         }
+
+        public IEnumerable<InvoiceItem> GenerateInvoiceItems()
+        {
+            return new InvoiceItem[]
+            {
+                new InvoiceItem(){ ItemName = "Item 1", Quantity = 1, NetValue = 100, TaxValue = 23, GrossValue = 123},
+                new InvoiceItem(){ ItemName = "Item 2", Quantity = 2, NetValue = 200, TaxValue = 23, GrossValue = 246},
+                new InvoiceItem(){ ItemName = "Item 3", Quantity = 3, NetValue = 300, TaxValue = 23, GrossValue = 369}
+            };
+        }
+
+        public Invoice CreateInvoice(IEnumerable<InvoiceItem> items)
+        {
+
+            Invoice invoice = new Invoice();
+            InvoiceCreated?.Invoke(this, invoice);
+            return invoice;
+        }
+
+        public event EventHandler<Invoice>? InvoiceCreated;
     }
 }
