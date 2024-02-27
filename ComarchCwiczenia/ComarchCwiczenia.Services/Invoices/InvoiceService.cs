@@ -7,8 +7,31 @@ using ComarchCwiczenia.Domain.Entities;
 
 namespace ComarchCwiczenia.Services.Invoices
 {
-    public class InvoiceService
+    public class InvoiceService : IInvoiceService
     {
+        private readonly ITaxService _taxService;
+        private readonly IDiscountService _discountService;
+
+        public InvoiceService()
+        {
+            
+        }
+
+        public InvoiceService(ITaxService taxService, IDiscountService discountService)
+        {
+            _taxService = taxService;
+            _discountService = discountService;
+        }
+
+        public decimal CalculateTotal(decimal amount, string customerType)
+        {
+            decimal discount = _discountService.CalculateDiscount(amount, customerType);
+            decimal taxableAmount = amount - discount;
+
+            decimal tax = _taxService.GetTax(taxableAmount);
+            return taxableAmount + tax;
+        }
+
         public InvoiceItem CreateItem(string name, decimal netValue, decimal taxValue)
         {
             if (string.IsNullOrEmpty(name))
@@ -58,5 +81,15 @@ namespace ComarchCwiczenia.Services.Invoices
         }
 
         public event EventHandler<Invoice>? InvoiceCreated;
+    }
+
+    public interface IDiscountService
+    {
+        decimal CalculateDiscount(decimal amount, string customerType);
+    }
+
+    public interface ITaxService
+    {
+        decimal GetTax(decimal amount);
     }
 }
