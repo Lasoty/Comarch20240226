@@ -11,6 +11,9 @@ namespace ComarchCwiczenia.Services.Invoices
     {
         public InvoiceItem CreateItem(string name, decimal netValue, decimal taxValue)
         {
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentException("Nazwa elementu nie może być pusta.", nameof(name));
+
             InvoiceItem item = new()
             {
                 ItemName = name,

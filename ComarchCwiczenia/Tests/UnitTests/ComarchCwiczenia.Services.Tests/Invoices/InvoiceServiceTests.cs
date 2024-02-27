@@ -65,5 +65,32 @@ namespace ComarchCwiczenia.Services.Tests.Invoices
             Assert.That(actual.GrossValue, Is.EqualTo(grossValue));
         }
 
+        [Test]
+        public void CreateItem_Should_ReturnTheSameInvoiceItem()
+        {
+            // Arrange
+            InvoiceService sut = new();
+
+            // Act
+            InvoiceItem item1 = sut.CreateItem("Item1", 10, 23);
+            InvoiceItem item2 = item1;
+
+            // Assert
+            Assert.AreEqual(item1, item2);
+
+        }
+
+        [Test]
+        public void When_ItemNameIsNullOrEmpty_CreateItem_Should_ThrowArgumentException()
+        {
+            // Arrange
+            InvoiceService sut = new();
+
+            // Act & Assert
+
+            Assert.Throws<ArgumentException>(() => sut.CreateItem("", 10, 23));
+            Assert.Throws<ArgumentException>(() => sut.CreateItem(null, 10, 23));
+        }
+
     }
 }
