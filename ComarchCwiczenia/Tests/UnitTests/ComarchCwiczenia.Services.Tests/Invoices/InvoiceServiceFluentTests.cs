@@ -105,5 +105,16 @@ namespace ComarchCwiczenia.Services.Tests.Invoices
         }
 
         #endregion
+
+        #region Assert Exceptions
+
+        [Test]
+        public void CreateItem_Should_ThrowException_When_NameIsNullOrEmpty()
+        {
+            _invoiceService.Invoking(ic => ic.CreateItem("", 10, 23)).Should().Throw<ArgumentException>()
+                .WithMessage("Nazwa elementu nie może być pusta. (Parameter 'name')");
+        }
+
+        #endregion
     }
 }
