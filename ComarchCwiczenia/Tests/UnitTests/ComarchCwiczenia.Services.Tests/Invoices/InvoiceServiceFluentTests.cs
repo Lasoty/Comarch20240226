@@ -19,6 +19,7 @@ namespace ComarchCwiczenia.Services.Tests.Invoices
             _invoiceService = new InvoiceService();
         }
 
+        #region Assert strings
         [Test]
         public void GenerateInvoiceNumber_Should_StartWhith_FV()
         {
@@ -49,7 +50,7 @@ namespace ComarchCwiczenia.Services.Tests.Invoices
         public void GenerateInvoiceNumber_ShouldMatch_ExpectedFormat()
         {
             var invoiceNumber = _invoiceService.GenerateInvoiceNumber();
-            
+
             invoiceNumber.Should().Match("FV-??????-???").And.BeOfType<string>();
         }
 
@@ -57,10 +58,10 @@ namespace ComarchCwiczenia.Services.Tests.Invoices
         public void GenerateInvoiceNumber_ShouldHaveLength_Of_17()
         {
             var invoiceNumber = _invoiceService.GenerateInvoiceNumber();
-            
+
             invoiceNumber.Should().HaveLength(13);
         }
-
-
+        #endregion
+        
     }
 }
