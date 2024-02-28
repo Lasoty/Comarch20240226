@@ -45,8 +45,8 @@ namespace BMICalculator.Services
         /// <returns></returns>
         public BmiResult GetResult(double weight, double height, UnitSystem unitSystem)
         {
-            var bmiCalculator = bmiCalculatorFactory.CreateCalculator(unitSystem);
-            var bmi = bmiCalculator.CalculateBmi(weight, height);
+            IBmiCalculator bmiCalculator = bmiCalculatorFactory.CreateCalculator(unitSystem);
+            double bmi = bmiCalculator.CalculateBmi(weight, height);
             BmiClassification classification = bmiDeterminator.DetermineBmi(bmi);
 
             return new BmiResult()
