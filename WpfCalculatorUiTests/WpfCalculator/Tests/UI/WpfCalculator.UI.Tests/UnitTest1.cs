@@ -38,6 +38,7 @@ namespace WpfCalculator.UI.Tests
 
             if (winAppDriverServerProcess != null)
             {
+                winAppDriverServerProcess.CloseMainWindow();
                 winAppDriverServerProcess.Close();
                 winAppDriverServerProcess.Dispose();
             }
@@ -45,6 +46,40 @@ namespace WpfCalculator.UI.Tests
 
         private void RunWebDriverServer()
         {
+            string[] potentialPaths =
+            {
+                @"C:\Program Files\Windows Application Driver",
+                @"C:\Program Files (x86)\Windows Application Driver",
+            };
+
+            foreach (string path in potentialPaths)
+            {
+                string exePath = Path.Combine(path, "WinAppDriver.exe");
+                if (File.Exists(exePath))
+                {
+                    ProcessStartInfo processStartInfo = new ProcessStartInfo(exePath)
+                    {
+                        UseShellExecute = true,
+                        WorkingDirectory = path,
+                        Verb = "runas" //uruchom jako administrator
+                    };
+
+                    try
+                    {
+                        winAppDriverServerProcess = Process.Start(processStartInfo);
+                        Console.WriteLine("WinAppDriver started succesfully.");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Nie uda³o siê uruchomiæ {exePath}. B³¹d: {ex.Message}");
+                        Assert.Fail($"Nie uda³o siê uruchomiæ {exePath}. B³¹d: {ex.Message}");
+                    }
+
+                    return;
+                }
+
+                Assert.Fail("Nie znaleziono WinAppDriver.exe w ¿adnej lokalizacji.");
+            }
         }
 
         [Test]
