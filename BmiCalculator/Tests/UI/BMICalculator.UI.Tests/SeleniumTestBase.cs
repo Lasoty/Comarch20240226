@@ -5,7 +5,7 @@ namespace BMICalculator.UI.Tests
 {
     public abstract class SeleniumTestBase
     {
-        private IWebDriver driver;
+        protected IWebDriver driver;
 
         [SetUp]
         public void Setup()
@@ -13,7 +13,7 @@ namespace BMICalculator.UI.Tests
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("--disable-extensions");
             options.AddArgument("--disable-gpu");
-            //options.AddArgument("--headless=new");
+            options.AddArgument("--headless=new");
 
             driver = new ChromeDriver();
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
