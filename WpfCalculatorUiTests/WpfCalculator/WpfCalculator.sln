@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5F3BDED9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{49F5159B-C580-4520-A9A0-5D856F3BD7E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfCalculator.UI.Tests", "Tests\UI\WpfCalculator.UI.Tests\WpfCalculator.UI.Tests.csproj", "{42CD0DFE-8161-4F8B-93D8-488C20F6263E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,12 +21,17 @@ Global
 		{7622DAD0-725A-4C4C-A158-7B761897A64C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7622DAD0-725A-4C4C-A158-7B761897A64C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7622DAD0-725A-4C4C-A158-7B761897A64C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42CD0DFE-8161-4F8B-93D8-488C20F6263E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42CD0DFE-8161-4F8B-93D8-488C20F6263E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42CD0DFE-8161-4F8B-93D8-488C20F6263E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42CD0DFE-8161-4F8B-93D8-488C20F6263E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{49F5159B-C580-4520-A9A0-5D856F3BD7E9} = {5F3BDED9-4DB6-428C-9658-249F0E8BEA19}
+		{42CD0DFE-8161-4F8B-93D8-488C20F6263E} = {49F5159B-C580-4520-A9A0-5D856F3BD7E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7F131B04-B1D8-44AE-A171-2C80E6761014}
